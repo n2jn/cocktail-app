@@ -1,10 +1,10 @@
 import {Image, ImageProps} from 'react-native';
 
-type UnitImageProps = ImageProps & {
+type ThumbnailImageProps = ImageProps & {
   image: string;
 };
 
-const UnitImage: React.FC<UnitImageProps> = ({image, ...other}) => {
+const ThumbnailImage: React.FC<ThumbnailImageProps> = ({image, ...other}) => {
   return (
     <Image
       resizeMode="cover"
@@ -14,4 +14,4 @@ const UnitImage: React.FC<UnitImageProps> = ({image, ...other}) => {
     />
   );
 };
-export default UnitImage;
+export default ThumbnailImage;

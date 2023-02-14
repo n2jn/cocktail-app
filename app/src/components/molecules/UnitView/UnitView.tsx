@@ -24,7 +24,7 @@ import {clamp, useVector} from 'react-native-redash';
 import {SharedElement} from 'react-navigation-shared-element';
 import {DimensionObject} from '../../../hooks/useDimension';
 import {Drink} from '../../../store/thecocktaildb/type';
-import UnitImage from '../../atoms/UnitImage';
+import UnitImage from '../../atoms/RoundImage';
 
 type UnitViewProps = {
   unit: Drink;
@@ -56,7 +56,7 @@ const UnitView = React.forwardRef<UnitViewRef, UnitViewProps>(
 
     const innerHeight = useCallback(() => {
       return height / 2;
-    }, [height])(); // should I do that ?
+    }, [height])(); // should I do that ? useDimension here
 
     const innerWidth = useCallback(() => {
       return width / 2;
@@ -75,7 +75,7 @@ const UnitView = React.forwardRef<UnitViewRef, UnitViewProps>(
 
     const gestureHandler =
       useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-        onStart: event => {},
+        onStart: _ => {},
         onActive: event => {
           cursor.x.value = origin.x.value + event.translationX;
           cursor.y.value = origin.y.value + event.translationY;
@@ -127,7 +127,6 @@ const UnitView = React.forwardRef<UnitViewRef, UnitViewProps>(
     return (
       <Animated.View
         onLayout={onLayout}
-        exiting={Layout.springify()}
         style={[
           styles.unitContainer,
           {

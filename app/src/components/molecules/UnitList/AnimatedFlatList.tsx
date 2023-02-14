@@ -137,7 +137,6 @@ const AnimatedFlatlist = React.forwardRef<
     });
 
     /** UNIT INFO */
-
     const renderItem = useCallback(
       ({item, index}: {item: any; index: number}) => {
         return (

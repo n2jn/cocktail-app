@@ -32,14 +32,6 @@ const Cursor = () => {
         y2="0"
         stroke="blue"
         strokeWidth="5"></Line>
-      {/* <Circle
-        cx="50"
-        cy="50"
-        r="45"
-        stroke="blue"
-        strokeWidth="2.5"
-        fill="green"
-      /> */}
     </Svg>
   );
 };

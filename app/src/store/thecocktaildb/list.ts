@@ -1,6 +1,6 @@
 import cocktailDb from '.';
 
-export type Filters = 'categories' | 'glass' | 'ingredient' | 'alcoholic';
+export type Filters = 'categories' | 'glass' | 'ingredient1' | 'alcoholic';
 
 export type StrFilterType<T extends Filters> = `str${Capitalize<T>}`;
 
@@ -15,7 +15,7 @@ const transformFilterDataResponse = <T extends Filters>(baseQueryReturnValue: {
 const lookupApi = cocktailDb.injectEndpoints({
   endpoints: builder => ({
     getIngredientsFilterData: builder.query<
-      FilterDataType<'ingredient'>[],
+      FilterDataType<'ingredient1'>[],
       void
     >({
       query: () => `list.php?i=list`,

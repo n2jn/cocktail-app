@@ -17,7 +17,7 @@ import {clamp, useVector} from 'react-native-redash';
 import {SharedElement} from 'react-navigation-shared-element';
 import {RootStackScreenProps} from '../../navigation/types';
 import {Drink} from '../../store/thecocktaildb/type';
-import UnitImage from '../atoms/UnitImage';
+import ThumbnailImage from '../atoms/ThumbnaiImage';
 import {SCREEN_WIDTH} from '../model';
 
 type DetailTemplateProps = {
@@ -80,7 +80,7 @@ const DetailTemplate: React.FC<DetailTemplateProps> = ({item}) => {
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[styles.header_container, headerAnimatedStyle]}>
           <SharedElement id={item.idDrink} style={StyleSheet.absoluteFill}>
-            <UnitImage
+            <ThumbnailImage
               resizeMode="cover"
               blurRadius={3}
               image={item.strDrinkThumb}

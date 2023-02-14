@@ -28,6 +28,10 @@ const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
 
   const onIngredientPress = () => {};
 
+  if (cocktail.isLoading || cocktail.isFetching) {
+    return <></>;
+  }
+
   return (
     <>
       <HomeTemplate
