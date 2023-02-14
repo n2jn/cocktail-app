@@ -310,6 +310,37 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-sfsymbols (1.2.1):
+    - React
+  - react-native-skia (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
+    - react-native-skia/Api (= 0.1.172)
+    - react-native-skia/Jsi (= 0.1.172)
+    - react-native-skia/RNSkia (= 0.1.172)
+    - react-native-skia/SkiaHeaders (= 0.1.172)
+    - react-native-skia/Utils (= 0.1.172)
+  - react-native-skia/Api (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
+  - react-native-skia/Jsi (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
+  - react-native-skia/RNSkia (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
+  - react-native-skia/SkiaHeaders (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
+  - react-native-skia/Utils (0.1.172):
+    - React
+    - React-callinvoker
+    - React-Core
   - React-perflogger (0.70.6)
   - React-RCTActionSheet (0.70.6):
     - React-Core/RCTActionSheetHeaders (= 0.70.6)
@@ -408,6 +439,8 @@ PODS:
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
+  - RNSharedElement (0.8.8):
+    - React-Core
   - RNSVG (13.6.0):
     - React-Core
   - SocketRocket (0.6.0)
@@ -464,6 +497,8 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
+  - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -479,6 +514,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -547,6 +583,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-sfsymbols:
+    :path: "../node_modules/react-native-sfsymbols"
+  react-native-skia:
+    :path: "../node_modules/@shopify/react-native-skia"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -577,6 +617,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSharedElement:
+    :path: "../node_modules/react-native-shared-element"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -619,6 +661,8 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
+  react-native-skia: 9313b8213e95466ef784158190aac26ee6990b82
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
   React-RCTAnimation: 5341e288375451297057391227f691d9b2326c3d
@@ -634,6 +678,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
   RNReanimated: ce445c233a6ff5600223484a88ad5704945d972a
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
+  RNSharedElement: 504fa28a235b12505b6daedbb452a9ec96809bd0
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc

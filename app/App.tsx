@@ -1,35 +1,42 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
-// import {SafeAreaProvider} from 'react-native-safe-area-context';
-import HomeScreen from './src/pages/Home.screen';
+import HomeScreen from './src/pages/Home.page';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import DetailsScreen from './src/pages/Details.screen';
 import {Provider} from 'react-redux';
-import store from './src/api/thecocktaildb';
+import store from './src/store';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
+import DetailsScreen from './src/pages/Details.page';
+import {RootStackParamList} from './src/navigation/types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createSharedElementStackNavigator<RootStackParamList>({}, {});
 
 const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{title: 'hello'}}
+            options={{title: 'hello', headerShown: false}}
           />
-          <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen
+            name="Detail"
+            component={DetailsScreen}
+            options={{
+              cardStyle: {backgroundColor: 'transparent'},
+              headerShown: false,
+              presentation: 'modal',
+            }}
+            sharedElements={(route, otherRoute, showing) => {
+              const {id} = route.params;
+              console.log('sharedElements', id);
+              return [
+                {
+                  id,
+                },
+              ];
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
