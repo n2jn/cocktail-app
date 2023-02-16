@@ -14,7 +14,7 @@ import Animated, {
 import {clamp, useVector} from 'react-native-redash';
 import {SharedGestureObject} from '../../../hooks/type';
 import {DimensionObject} from '../../../hooks/useDimension';
-import Cursor from './Cursor';
+import Cursor from '../../atoms/Cursor';
 
 type MapProps = {
   scale: SharedValue<{x: number; y: number}>;
@@ -37,7 +37,6 @@ const Map = React.forwardRef<MapRef, MapProps>(
     },
     ref,
   ) => {
-    // const translation = useVector();
     const cursor = useVector();
     const [canMove, setCanMove] = useState(isGestureEnabled.value);
 
@@ -77,37 +76,6 @@ const Map = React.forwardRef<MapRef, MapProps>(
       },
       [],
     );
-
-    useImperativeHandle(ref, () => ({
-      setTranslation,
-      getTranslation,
-    }));
-
-    const setTranslation = (x: number, y: number) => {
-      'worklet';
-      translation.x.value = x;
-      translation.y.value = y;
-    };
-
-    const getTranslation = () => ({
-      x: translation.x.value,
-      y: translation.y.value,
-    });
-
-    const cursorAnimationStyle = useAnimatedStyle(() => {
-      return {
-        width: listDimension.width * scale.value.x,
-        height: listDimension.height * scale.value.y,
-        transform: [
-          {
-            translateX: translation.x.value,
-          },
-          {
-            translateY: translation.y.value,
-          },
-        ],
-      };
-    }, [scale, translation, listDimension]);
 
     return (
       <>

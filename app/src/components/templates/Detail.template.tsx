@@ -1,21 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import Animated, {
-  interpolate,
-  Layout,
   runOnJS,
   useAnimatedGestureHandler,
   useAnimatedReaction,
   useAnimatedStyle,
-  useDerivedValue,
 } from 'react-native-reanimated';
-import {clamp, useVector} from 'react-native-redash';
+import {useVector} from 'react-native-redash';
 import {SharedElement} from 'react-navigation-shared-element';
-import {RootStackScreenProps} from '../../navigation/types';
 import {Drink} from '../../store/thecocktaildb/type';
 import ThumbnailImage from '../atoms/ThumbnaiImage';
 import {SCREEN_WIDTH} from '../model';
@@ -46,12 +42,12 @@ const DetailTemplate: React.FC<DetailTemplateProps> = ({item}) => {
 
   const gestureHandler =
     useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-      onStart: event => {},
+      onStart: _ => {},
       onActive: event => {
         translate.x.value = event.translationX;
         translate.y.value = event.translationY;
       },
-      onEnd: event => {
+      onEnd: _ => {
         translate.x.value = 0;
         translate.y.value = 0;
       },

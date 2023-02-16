@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
-import UnitImage from '../components/atoms/ThumbnaiImage';
+import UnitImage from '../components/atoms/RoundImage';
 import DetailTemplate from '../components/templates/Detail.template';
 import {RootStackScreenProps} from '../navigation/types';
 import {useLookupCocktailByIdQuery} from '../store/thecocktaildb/lookup';
