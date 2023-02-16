@@ -1,8 +1,3 @@
-import {useEffect, useState} from 'react';
-import {SharedValue, useSharedValue} from 'react-native-reanimated';
-import {useVector, Vector} from 'react-native-redash';
-import {SharedGestureObject, SharedGesturesArray} from './types';
-
 /**
  *
  * @param w width of SMALLEST view

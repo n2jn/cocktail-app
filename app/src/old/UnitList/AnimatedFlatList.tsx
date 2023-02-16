@@ -15,10 +15,10 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
-import {DimensionObject} from '../../../hooks/useDimension';
-import {SharedGestureObject} from '../../../hooks/useSharedGestureArray';
-import {Drink} from '../../../store/thecocktaildb/type';
-import {SharedGestureRef} from '../../organisms/Unit/types';
+import {DimensionObject} from '../../hooks/useDimension';
+import {SharedGestureObject} from '../../hooks/useSharedGestureArray';
+import {Drink} from '../../store/thecocktaildb/type';
+import {SharedGestureRef} from '../Unit/types';
 import UnitView, {UnitViewRef} from '../UnitView/UnitView';
 
 export const UNPLUG_COLORS = {
@@ -96,45 +96,25 @@ const AnimatedFlatlist = React.forwardRef<
       }
     }, [itemRefs, translation, listDimension, numItems]);
 
-    /** Ref function */
-    useImperativeHandle(
-      ref,
-      () => ({
-        setTranslation,
-        getTranslation,
-      }),
-      [flatlistRef],
-    );
-
-    const setTranslation = (x: number, y: number) => {
-      'worklet';
-      scrollTo(flatlistRef, x, y, true);
-    };
-
-    const getTranslation = () => ({
-      x: translation.x.value,
-      y: translation.y.value,
-    });
-
-    /** Scroll handler */
-    const scrollHandler = useAnimatedScrollHandler({
-      onScroll: event => {
-        translation.y.value = event.contentOffset.y;
-        translation.x.value = event.contentOffset.x;
-      },
-      onBeginDrag: e => {
-        isGestureBeingUsed.value = true;
-      },
-      onEndDrag: e => {
-        isGestureBeingUsed.value = false;
-      },
-      onMomentumBegin: () => {
-        isGestureBeingUsed.value = true;
-      },
-      onMomentumEnd: e => {
-        isGestureBeingUsed.value = false;
-      },
-    });
+    // /** Scroll handler */
+    // const scrollHandler = useAnimatedScrollHandler({
+    //   onScroll: event => {
+    //     translation.y.value = event.contentOffset.y;
+    //     translation.x.value = event.contentOffset.x;
+    //   },
+    //   onBeginDrag: e => {
+    //     isGestureBeingUsed.value = true;
+    //   },
+    //   onEndDrag: e => {
+    //     isGestureBeingUsed.value = false;
+    //   },
+    //   onMomentumBegin: () => {
+    //     isGestureBeingUsed.value = true;
+    //   },
+    //   onMomentumEnd: e => {
+    //     isGestureBeingUsed.value = false;
+    //   },
+    // });
 
     /** UNIT INFO */
     const renderItem = useCallback(

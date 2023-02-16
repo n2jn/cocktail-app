@@ -35,8 +35,7 @@ const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
   return (
     <>
       <HomeTemplate
-        cocktails={cocktail.data ?? []}
-        ingredients={ingredients.data ?? []}
+        drinks={cocktail.data ?? []}
         onCocktailPress={onCocktailPress}
         onIngredientPress={onIngredientPress}
       />

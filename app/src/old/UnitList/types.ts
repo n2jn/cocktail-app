@@ -1,6 +1,6 @@
 import {Dimensions, View} from 'react-native';
-import {FilterDataType, Filters} from '../../../store/thecocktaildb/list';
-import {Drink} from '../../../store/thecocktaildb/type';
+import {FilterDataType, Filters} from '../../store/thecocktaildb/list';
+import {Drink} from '../../store/thecocktaildb/type';
 
 export type UnitDataInfo = {
   color: {

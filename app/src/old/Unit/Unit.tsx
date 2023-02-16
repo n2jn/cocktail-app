@@ -2,12 +2,12 @@ import {useCallback, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useDerivedValue} from 'react-native-reanimated';
 import {useVector} from 'react-native-redash';
-import useDimension, {DimensionObject} from '../../../hooks/useDimension';
-import {downScale, upScale} from '../../helper';
-import UnitList from '../../molecules/UnitList';
+import useDimension, {DimensionObject} from '../../hooks/useDimension';
+import {downScale, upScale} from '../../components/helper';
+import UnitList from '../UnitList';
 import UnitMap from '../../molecules/UnitMap';
-import AnimatedBackground from '../../molecules/AnimatedBackground/AnimatedBackground';
-import {useSharedGestureArray} from '../../../hooks/useSharedGestureArray';
+import AnimatedBackground from '../../components/molecules/AnimatedBackground/AnimatedBackground';
+import {useSharedGestureArray} from '../../hooks/useSharedGestureArray';
 import {SharedGestureRef} from './types';
 
 type UnitProps = {

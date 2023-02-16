@@ -2,9 +2,8 @@ import {useAnimatedScrollHandler} from 'react-native-reanimated';
 import {SharedGestureObject} from './type';
 import {DimensionObject} from './useDimension';
 
-export const useScrollHandler = (
+export const useCardScrollHandler = (
   {translation, isGestureBeingUsed}: SharedGestureObject,
-  {width, height}: DimensionObject,
 ) => {
   /** Scroll handler */
   const scrollHandler = useAnimatedScrollHandler({

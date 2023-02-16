@@ -2,7 +2,6 @@ import React, {useImperativeHandle} from 'react';
 import {View} from 'react-native';
 import {SharedGestureObject} from '../../../hooks/type';
 import {DimensionObject} from '../../../hooks/useDimension';
-import {GestureHandler} from '../../atoms/GestureHandler';
 import {Cursor} from './cursor';
 
 type SliderProps = {
@@ -16,7 +15,7 @@ type SliderRefType = {
   getTranslation: () => void;
 };
 
-export const SliderRef = React.forwardRef<SliderRefType, SliderProps>(
+export const AnimatedSlider = React.forwardRef<SliderRefType, SliderProps>(
   ({sharedGesture: sg, ...props}, ref) => {
     useImperativeHandle(ref, () => ({
       setTranslation,
@@ -34,7 +33,7 @@ export const SliderRef = React.forwardRef<SliderRefType, SliderProps>(
       y: sg.translation.y.value,
     });
 
-    return <SliderComponent sharedGesture={sg} {...props}></SliderComponent>;
+    return <SliderComponent sharedGesture={sg} {...props} />;
   },
 );
 

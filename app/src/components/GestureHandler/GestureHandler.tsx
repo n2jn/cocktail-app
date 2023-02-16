@@ -1,24 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {
-  Gesture,
-  GestureDetector,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-import {clamp, useVector} from 'react-native-redash';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import {useVector} from 'react-native-redash';
 import {SharedGestureObject} from '../../hooks/type';
 import {DimensionObject} from '../../hooks/useDimension';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../model';
 
 export type GestureHandlerProps = {
   sharedGesture: SharedGestureObject;
   dimension: DimensionObject;
+  children: React.ReactNode;
 };
 
-export const GestureHandler = ({
+// Draggable View
+// manipule les enfant via le pan gesture
+
+export const GestureHandler: React.FC<GestureHandlerProps> = ({
   sharedGesture: {translation},
   dimension,
   children,
@@ -36,8 +32,8 @@ export const GestureHandler = ({
     .onChange(event => {
       cursor.x.value = origin.x.value + event.translationX;
       cursor.y.value = origin.y.value + event.translationY;
-      translation.x.value = origin.x.value + event.translationX; //clamp(cursor.x.value, 0, SCREEN_WIDTH);
-      translation.y.value = origin.y.value + event.translationY; //clamp(cursor.y.value, 0, SCREEN_HEIGHT);
+      translation.x.value = origin.x.value + event.translationX;
+      translation.y.value = origin.y.value + event.translationY;
     })
     .onEnd(_ => {
       translation.x.value = origin.x.value;
@@ -47,10 +43,8 @@ export const GestureHandler = ({
     });
 
   const animatedStyle = useAnimatedStyle(() => {
-    const {width, height} = dimension;
     return {
-      width,
-      height,
+      ...dimension,
       transform: [
         {translateX: translation.x.value},
         {translateY: translation.y.value},

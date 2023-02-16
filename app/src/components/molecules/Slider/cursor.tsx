@@ -3,7 +3,7 @@ import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {SharedGestureObject} from '../../../hooks/type';
 import {DimensionObject} from '../../../hooks/useDimension';
 import {Circle, Line, Svg} from 'react-native-svg';
-import {GestureHandler} from '../../atoms/GestureHandler';
+import {GestureHandler} from '../../GestureHandler/GestureHandler';
 
 type CursorType = {
   sharedGesture: SharedGestureObject;

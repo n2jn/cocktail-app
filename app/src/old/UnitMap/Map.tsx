@@ -12,8 +12,8 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated';
 import {clamp, useVector} from 'react-native-redash';
-import {SharedGestureObject} from '../../../hooks/type';
-import {DimensionObject} from '../../../hooks/useDimension';
+import {SharedGestureObject} from '../../hooks/type';
+import {DimensionObject} from '../../hooks/useDimension';
 import Cursor from '../../atoms/Cursor';
 
 type MapProps = {

@@ -22,8 +22,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import {clamp, useVector} from 'react-native-redash';
 import {SharedElement} from 'react-navigation-shared-element';
-import {DimensionObject} from '../../../hooks/useDimension';
-import {Drink} from '../../../store/thecocktaildb/type';
+import {DimensionObject} from '../../hooks/useDimension';
+import {Drink} from '../../store/thecocktaildb/type';
 import UnitImage from '../../atoms/RoundImage';
 
 type UnitViewProps = {
