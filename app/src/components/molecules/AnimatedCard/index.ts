@@ -1,3 +1,3 @@
-import {DrinkCardRef} from './card';
+import {AnimatedCard} from './card';
 
-export default DrinkCardRef;
+export default AnimatedCard;

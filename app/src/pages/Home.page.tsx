@@ -2,19 +2,14 @@ import React, {useCallback} from 'react';
 
 import {useGetCocktailWithOrWithoutAlchoolQuery} from '../store/thecocktaildb/filter';
 
-import HomeTemplate from '../components/templates/Home.template';
-import {useGetIngredientsFilterDataQuery} from '../store/thecocktaildb/list';
-import {View} from 'react-native';
+import DrinkProductTemplate from '../components/templates/DrinkProduct.template';
 import {RootStackScreenProps} from '../navigation/types';
 
 const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
   const cocktail = useGetCocktailWithOrWithoutAlchoolQuery('Alcoholic');
-  const ingredients = useGetIngredientsFilterDataQuery();
-
-  console.log('ingredients', ingredients.data);
 
   const onCocktailPress = useCallback(
-    (id: string) => {
+    (id: string) => () => {
       console.log(
         'pressed',
         cocktail.data?.find(item => item.idDrink === id),
@@ -26,18 +21,15 @@ const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
     [cocktail],
   );
 
-  const onIngredientPress = () => {};
-
   if (cocktail.isLoading || cocktail.isFetching) {
     return <></>;
   }
 
   return (
     <>
-      <HomeTemplate
+      <DrinkProductTemplate
         drinks={cocktail.data ?? []}
         onCocktailPress={onCocktailPress}
-        onIngredientPress={onIngredientPress}
       />
     </>
   );
