@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 
 import {useGetCocktailWithOrWithoutAlchoolQuery} from '../store/thecocktaildb/filter';
 
-import DrinkProductTemplate from '../components/templates/DrinkProduct.template';
+import SelectionPageTemplate from '../components/templates/SelectionPage/SelectionPage.template';
 import {RootStackScreenProps} from '../navigation/types';
 
 const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
@@ -27,7 +27,7 @@ const HomeScreen: React.FC<RootStackScreenProps<'Detail'>> = ({navigation}) => {
 
   return (
     <>
-      <DrinkProductTemplate
+      <SelectionPageTemplate
         drinks={cocktail.data ?? []}
         onCocktailPress={onCocktailPress}
       />

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useWindowDimensions} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
 import {
   Canvas,
   Fill,

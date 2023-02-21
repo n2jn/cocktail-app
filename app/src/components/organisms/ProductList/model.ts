@@ -1,4 +1,0 @@
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../model';
-
-export const PRODUCT_LIST_WIDTH = SCREEN_WIDTH;
-export const PRODUCT_LIST_HEIGHT = SCREEN_HEIGHT;

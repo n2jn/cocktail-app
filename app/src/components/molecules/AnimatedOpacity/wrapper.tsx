@@ -8,18 +8,19 @@ import Animated, {
 } from 'react-native-reanimated';
 import {DimensionObject} from '../../../hooks/useDimension';
 
-export type CardRefType = {
+export type AnimatedOpacityRefType = {
   setVisible: (isVisible: boolean) => void;
 };
 
-type DrinkCardComponentProps = {
+type AnimatedOpacityProps = {
   dimension: DimensionObject;
   children: React.ReactNode;
+  opacity: number; // sharedvalue ?
 };
 
-export const AnimatedCard = React.forwardRef<
-  CardRefType,
-  DrinkCardComponentProps
+export const AnimatedOpacity = React.forwardRef<
+  AnimatedOpacityRefType,
+  AnimatedOpacityProps
 >(({dimension, children}, ref) => {
   const opacity = useSharedValue(1); // full opacity by default
 

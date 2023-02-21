@@ -1,25 +1,29 @@
 import React, {useImperativeHandle} from 'react';
-import {View} from 'react-native';
+import {LayoutChangeEvent, StyleSheet, View} from 'react-native';
 import {SharedGestureObject} from '../../../hooks/type';
+import useAnimatedDimension, {
+  AnimatedDimensionObject,
+} from '../../../hooks/useAnimatedDimension';
 import {DimensionObject} from '../../../hooks/useDimension';
 import {Cursor} from './cursor';
 
 type SliderProps = {
   sharedGesture: SharedGestureObject;
-  dimension: DimensionObject;
-  cursorDimension: DimensionObject;
+  containerSize: DimensionObject;
+  cursorSize: DimensionObject;
 };
 
 type SliderRefType = {
   setTranslation: (x: number, y: number) => void;
-  getTranslation: () => void;
+  getContentSize: () => DimensionObject;
 };
 
-export const AnimatedSlider = React.forwardRef<SliderRefType, SliderProps>(
-  ({sharedGesture: sg, ...props}, ref) => {
+export const Slider = React.forwardRef<SliderRefType, SliderProps>(
+  ({sharedGesture: sg, containerSize, cursorSize}, ref) => {
+    const contentSize = useAnimatedDimension();
     useImperativeHandle(ref, () => ({
       setTranslation,
-      getTranslation,
+      getContentSize: () => containerSize,
     }));
 
     const setTranslation = (x: number, y: number) => {
@@ -28,32 +32,24 @@ export const AnimatedSlider = React.forwardRef<SliderRefType, SliderProps>(
       sg.translation.y.value = y;
     };
 
-    const getTranslation = () => ({
-      x: sg.translation.x.value,
-      y: sg.translation.y.value,
-    });
+    const onLayout = (layout: LayoutChangeEvent) => {};
 
-    return <SliderComponent sharedGesture={sg} {...props} />;
+    return (
+      <View onLayout={onLayout} style={[containerSize, styles.container]}>
+        <Cursor sharedGesture={sg} dimension={cursorSize} />
+      </View>
+    );
   },
 );
 
-export const SliderComponent: React.FC<SliderProps> = ({
-  dimension,
-  cursorDimension,
-  sharedGesture,
-}) => {
-  return (
-    <View
-      style={[
-        dimension,
-        {
-          backgroundColor: 'transparent',
-          borderColor: 'black',
-          borderRadius: 10,
-          borderWidth: 1,
-        },
-      ]}>
-      <Cursor sharedGesture={sharedGesture} dimension={cursorDimension} />
-    </View>
-  );
-};
+const styles = StyleSheet.create({
+  container: {
+    bottom: 0,
+    right: 0,
+    position: 'absolute',
+    backgroundColor: 'red',
+    borderColor: 'black',
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+});
