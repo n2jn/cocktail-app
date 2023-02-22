@@ -1,17 +1,23 @@
-import React, {useCallback, useImperativeHandle, useMemo} from 'react';
+import React, {
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import {FlatListProps, StyleSheet, View} from 'react-native';
 import Animated, {
   scrollTo,
   useAnimatedRef,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
-import {useVector} from 'react-native-redash';
-import {SharedGestureObject} from '../../../hooks/type';
-import useAnimatedDimension, {
-  AnimatedDimensionObject,
-} from '../../../hooks/useAnimatedDimension';
-import useDimension, {DimensionObject} from '../../../hooks/useDimension';
+import {
+  DimensionObject,
+  SharedGestureObject,
+  SharedGestureRefType,
+} from '../../../hooks/type';
+import useAnimatedDimension from '../../../hooks/useAnimatedDimension';
 import {Drink} from '../../../store/thecocktaildb/type';
+import {PlaceholderCard} from '../../molecules/PlaceholderCard';
 
 // works only for DRINK (change that)
 type ProductListPropsType = FlatListProps<Drink> & {
@@ -20,13 +26,8 @@ type ProductListPropsType = FlatListProps<Drink> & {
   sharedGesture: SharedGestureObject;
 };
 
-type ProductListRefType = {
-  setTranslation: (x: number, y: number) => void;
-  getContentSize: () => AnimatedDimensionObject;
-};
-
 export const ProductList = React.forwardRef<
-  ProductListRefType,
+  SharedGestureRefType,
   ProductListPropsType
 >(
   (
@@ -36,6 +37,7 @@ export const ProductList = React.forwardRef<
       cardSize,
       numColumns: staticNumColumns,
       containerSize,
+      renderItem,
       ...flatlistProps
     },
     ref,
@@ -56,6 +58,7 @@ export const ProductList = React.forwardRef<
 
     const flatlistRef = useAnimatedRef<Animated.FlatList<Drink>>();
     const contentSize = useAnimatedDimension();
+    const [showPlaceholder, setShowPlaceholder] = useState(true);
 
     useImperativeHandle(
       ref,
@@ -64,7 +67,8 @@ export const ProductList = React.forwardRef<
           'worklet';
           scrollTo(flatlistRef, x, y, true);
         },
-        getContentSize: () => contentSize,
+        getGestureType: () => 'onScroll',
+        showContent: () => setShowPlaceholder(false),
       }),
       [flatlistRef],
     );
@@ -122,6 +126,8 @@ export const ProductList = React.forwardRef<
     return (
       <View style={containerSize}>
         <Animated.FlatList
+          //onLayout={}
+          scrollEnabled={!showPlaceholder}
           style={styles.scrollContainer}
           numColumns={numColumns}
           key={`${numColumns}`}
@@ -134,6 +140,11 @@ export const ProductList = React.forwardRef<
           getItemLayout={getItemLayout}
           onScroll={scrollHandler}
           onContentSizeChange={onContentSizeChange}
+          renderItem={
+            // showPlaceholder
+            //   ? useCallback(() => <PlaceholderCard cardSize={cardSize} />, [])
+            renderItem
+          }
           {...flatlistProps}
         />
       </View>

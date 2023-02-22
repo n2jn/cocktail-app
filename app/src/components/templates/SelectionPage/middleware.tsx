@@ -1,14 +1,28 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {LayoutChangeEvent} from 'react-native';
-import {useDerivedValue} from 'react-native-reanimated';
-import {SharedGestureRef} from '../../../old/Unit/types';
-import {downScale} from '../../helper';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {SharedGestureRefType} from '../../../hooks/type';
 
+const Pan = Gesture.Pan().onChange(e => console.log(e));
+
+type GestureHandlerProps = {
+  node: React.ReactNode;
+  key: number;
+};
+
+const GestureHandler = ({node}: GestureHandlerProps) => {
+  return <GestureDetector gesture={Gesture.Race(Pan)}>{node}</GestureDetector>;
+};
+
+// rename
 export const SharedWrapper = ({children}: {children: React.ReactNode[]}) => {
   const childRefs = new Array(children.length)
     .fill(0)
-    .map(() => useRef<SharedGestureRef>(null));
+    .map(() => useRef<SharedGestureRefType>(null));
+
+  const [childTypes, setChildTypes] = useState([]);
+
+  //const gesture = getGestureHandlerByType('scroll');
 
   // const scaleDown = useDerivedValue(
   //   () =>
@@ -56,32 +70,46 @@ export const SharedWrapper = ({children}: {children: React.ReactNode[]}) => {
 
   useEffect(() => {
     console.log('childRefs', childRefs.length);
-    //  console.log('childRefs', childRefs[0].current?.onLayout());
+    if (childRefs) {
+      //childRefs[0].current?.getGestureType();
+      childRefs.forEach(({current}) => {
+        // current?.showContent();
+        // const type = current?.getGestureType();
+        // setGestureType
+      });
+      // console.log(childRefs[0].current?.getGestureType());
+      // console.log(childRefs[1].current?.getGestureType());
+    }
   }, [childRefs]);
 
   const SharedChildren = useMemo(
     () =>
-      React.Children.map(
-        children,
-        (child, index) =>
-          React.cloneElement(
-            child as React.ReactElement<
-              any,
-              string | React.JSXElementConstructor<any>
-            >,
-            {
-              ref: n => {
-                childRefs[index].current = n;
-              },
-              onLayout: (e: LayoutChangeEvent) =>
-                console.log('layout', {layout: e}),
-              onContentSizeChange: (w: number, h: number) =>
-                console.log('layout', {w, h}),
+      React.Children.map(children, (child, index) =>
+        React.cloneElement(
+          child as React.ReactElement<
+            any,
+            string | React.JSXElementConstructor<any>
+          >,
+          {
+            ref: n => {
+              console.log('n', n?.getGestureType());
+              childRefs[index].current = n;
             },
-          ), // bridgeEvent
+            onLayout: (e: LayoutChangeEvent) =>
+              console.log('layout', {layout: e}),
+            onContentSizeChange: (w: number, h: number) =>
+              console.log('onContentSizeChange', {w, h}),
+          },
+        ),
       ),
     [children],
   );
 
-  return SharedChildren;
+  return (
+    <>
+      {SharedChildren?.map((child, index) => (
+        <GestureHandler key={index} node={child} />
+      )) ?? SharedChildren}
+    </>
+  );
 };

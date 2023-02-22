@@ -27,11 +27,9 @@ export const Cursor: React.FC<CursorType> = ({dimension, sharedGesture}) => {
   }, [sharedGesture, dimension]);
 
   return (
-    <GestureHandler sharedGesture={sharedGesture} dimension={dimension}>
-      <Animated.View style={[styles.cursor, cursorAnimationStyle]}>
-        <CursorSVG />
-      </Animated.View>
-    </GestureHandler>
+    <Animated.View style={[styles.cursor, cursorAnimationStyle]}>
+      <CursorSVG />
+    </Animated.View>
   );
 };
 

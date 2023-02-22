@@ -1,10 +1,5 @@
-import {useState} from 'react';
-import {SharedValue, useSharedValue} from 'react-native-reanimated';
-
-export type AnimatedDimensionObject = {
-  width: SharedValue<number>;
-  height: SharedValue<number>;
-};
+import {useSharedValue} from 'react-native-reanimated';
+import {AnimatedDimensionObject} from './type';
 
 const useAnimatedDimension = (
   w: number = 0,

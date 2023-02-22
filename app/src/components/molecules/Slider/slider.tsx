@@ -1,10 +1,12 @@
-import React, {useImperativeHandle} from 'react';
+import React, {useImperativeHandle, useState} from 'react';
 import {LayoutChangeEvent, StyleSheet, View} from 'react-native';
-import {SharedGestureObject} from '../../../hooks/type';
-import useAnimatedDimension, {
-  AnimatedDimensionObject,
-} from '../../../hooks/useAnimatedDimension';
-import {DimensionObject} from '../../../hooks/useDimension';
+import {
+  DimensionObject,
+  SharedGestureObject,
+  SharedGestureRefType,
+} from '../../../hooks/type';
+import useAnimatedDimension from '../../../hooks/useAnimatedDimension';
+import {PlaceholderCard} from '../PlaceholderCard';
 import {Cursor} from './cursor';
 
 type SliderProps = {
@@ -13,17 +15,16 @@ type SliderProps = {
   cursorSize: DimensionObject;
 };
 
-type SliderRefType = {
-  setTranslation: (x: number, y: number) => void;
-  getContentSize: () => DimensionObject;
-};
-
-export const Slider = React.forwardRef<SliderRefType, SliderProps>(
+export const Slider = React.forwardRef<SharedGestureRefType, SliderProps>(
   ({sharedGesture: sg, containerSize, cursorSize}, ref) => {
     const contentSize = useAnimatedDimension();
+    const [showPlaceholder, setShowPlaceholder] = useState(true);
+
     useImperativeHandle(ref, () => ({
       setTranslation,
       getContentSize: () => containerSize,
+      getGestureType: () => 'StickyPan',
+      showContent: () => setShowPlaceholder(false),
     }));
 
     const setTranslation = (x: number, y: number) => {
@@ -34,8 +35,12 @@ export const Slider = React.forwardRef<SliderRefType, SliderProps>(
 
     const onLayout = (layout: LayoutChangeEvent) => {};
 
+    if (showPlaceholder) {
+    }
+
     return (
       <View onLayout={onLayout} style={[containerSize, styles.container]}>
+        {showPlaceholder && <PlaceholderCard cardSize={containerSize} />}
         <Cursor sharedGesture={sg} dimension={cursorSize} />
       </View>
     );
