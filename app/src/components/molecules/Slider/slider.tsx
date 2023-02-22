@@ -13,11 +13,11 @@ type SliderProps = {
   sharedGesture: SharedGestureObject;
   containerSize: DimensionObject;
   cursorSize: DimensionObject;
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
 export const Slider = React.forwardRef<SharedGestureRefType, SliderProps>(
-  ({sharedGesture: sg, containerSize, cursorSize}, ref) => {
-    const contentSize = useAnimatedDimension();
+  ({sharedGesture: sg, containerSize, cursorSize, onLayout}, ref) => {
     const [showPlaceholder, setShowPlaceholder] = useState(true);
 
     useImperativeHandle(ref, () => ({
@@ -32,11 +32,6 @@ export const Slider = React.forwardRef<SharedGestureRefType, SliderProps>(
       sg.translation.x.value = x;
       sg.translation.y.value = y;
     };
-
-    const onLayout = (layout: LayoutChangeEvent) => {};
-
-    if (showPlaceholder) {
-    }
 
     return (
       <View onLayout={onLayout} style={[containerSize, styles.container]}>

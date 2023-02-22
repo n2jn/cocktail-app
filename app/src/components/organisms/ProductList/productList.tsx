@@ -123,10 +123,13 @@ export const ProductList = React.forwardRef<
       },
     });
 
+    const renderPlaceholder = useCallback(() => {
+      return <PlaceholderCard cardSize={cardSize} />;
+    }, []);
+
     return (
       <View style={containerSize}>
         <Animated.FlatList
-          //onLayout={}
           scrollEnabled={!showPlaceholder}
           style={styles.scrollContainer}
           numColumns={numColumns}
@@ -140,11 +143,7 @@ export const ProductList = React.forwardRef<
           getItemLayout={getItemLayout}
           onScroll={scrollHandler}
           onContentSizeChange={onContentSizeChange}
-          renderItem={
-            // showPlaceholder
-            //   ? useCallback(() => <PlaceholderCard cardSize={cardSize} />, [])
-            renderItem
-          }
+          renderItem={showPlaceholder ? renderPlaceholder : renderItem}
           {...flatlistProps}
         />
       </View>
@@ -154,7 +153,6 @@ export const ProductList = React.forwardRef<
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    // backgroundColor: 'red',
     flexWrap: 'wrap',
   },
 });

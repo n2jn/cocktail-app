@@ -6,11 +6,11 @@ import {useSharedGestureArray} from '../../../hooks/useSharedGestureArray';
 import {SharedGestureRef} from '../../../old/Unit/types';
 import {Drink} from '../../../store/thecocktaildb/type';
 import {Neumorphism} from '../../molecules/Neumorphism';
-import ProductCard from '../../molecules/ProductICard';
+import ProductCard from '../../molecules/ProductCard';
 
 import {Slider} from '../../molecules/Slider/slider';
 import {ProductList} from '../../organisms/ProductList';
-import {middleware, SharedWrapper} from './middleware';
+import {SharedWrapper} from './middleware';
 import {
   DEFAULT_CARD_HEIGHT,
   DEFAULT_CARD_WIDTH,

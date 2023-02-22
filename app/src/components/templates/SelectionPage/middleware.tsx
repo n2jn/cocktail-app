@@ -1,7 +1,10 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {LayoutChangeEvent} from 'react-native';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {useDerivedValue} from 'react-native-reanimated';
 import {SharedGestureRefType} from '../../../hooks/type';
+import useAnimatedDimension from '../../../hooks/useAnimatedDimension';
+import useDimension from '../../../hooks/useDimension';
 
 const Pan = Gesture.Pan().onChange(e => console.log(e));
 
@@ -20,7 +23,16 @@ export const SharedWrapper = ({children}: {children: React.ReactNode[]}) => {
     .fill(0)
     .map(() => useRef<SharedGestureRefType>(null));
 
-  const [childTypes, setChildTypes] = useState([]);
+  const layoutSizes = new Array(children.length)
+    .fill(0)
+    .map(() => useAnimatedDimension());
+
+  const contentSizes = new Array(children.length)
+    .fill(0)
+    .map(() => useAnimatedDimension());
+
+  // const layoutSize = useAnimatedDimension();
+  // const contentSize = useAnimatedDimension();
 
   //const gesture = getGestureHandlerByType('scroll');
 
@@ -68,19 +80,53 @@ export const SharedWrapper = ({children}: {children: React.ReactNode[]}) => {
 
   console.log('childRefs', childRefs);
 
+  useDerivedValue(() => {
+    console.log('layoutSize', {layoutSizes});
+    console.log('contentSize', {contentSizes});
+  }, [contentSizes, layoutSizes]);
+
   useEffect(() => {
     console.log('childRefs', childRefs.length);
     if (childRefs) {
       //childRefs[0].current?.getGestureType();
-      childRefs.forEach(({current}) => {
+      childRefs.forEach(({current}, index) => {
+        console.log(index, {current});
         // current?.showContent();
         // const type = current?.getGestureType();
         // setGestureType
       });
-      // console.log(childRefs[0].current?.getGestureType());
-      // console.log(childRefs[1].current?.getGestureType());
     }
   }, [childRefs]);
+
+  const onLayout = useCallback(
+    (index: number) => (e: LayoutChangeEvent) => {
+      const {height: h, width: w} = e.nativeEvent.layout;
+      const lHeight = parseInt(h.toFixed(0));
+      const lWidth = parseInt(w.toFixed(0));
+
+      layoutSizes[index].height.value = lHeight;
+      layoutSizes[index].width.value = lWidth;
+    },
+    [],
+  );
+
+  const onContentSizeChange = useCallback(
+    (index: number) => (w: number, h: number) => {
+      const cHeight = parseInt(h.toFixed(0));
+      const cWidth = parseInt(w.toFixed(0));
+
+      contentSizes[index].height.value = cHeight;
+      contentSizes[index].width.value = cWidth;
+    },
+    [],
+  );
+
+  const getRef = useCallback(
+    (index: number) => (n: SharedGestureRefType) => {
+      childRefs[index].current = n;
+    },
+    [],
+  );
 
   const SharedChildren = useMemo(
     () =>
@@ -91,14 +137,9 @@ export const SharedWrapper = ({children}: {children: React.ReactNode[]}) => {
             string | React.JSXElementConstructor<any>
           >,
           {
-            ref: n => {
-              console.log('n', n?.getGestureType());
-              childRefs[index].current = n;
-            },
-            onLayout: (e: LayoutChangeEvent) =>
-              console.log('layout', {layout: e}),
-            onContentSizeChange: (w: number, h: number) =>
-              console.log('onContentSizeChange', {w, h}),
+            ref: getRef(index),
+            onLayout: onLayout(index),
+            onContentSizeChange: onContentSizeChange(index),
           },
         ),
       ),
