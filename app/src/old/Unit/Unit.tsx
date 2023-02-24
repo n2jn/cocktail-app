@@ -3,11 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {useDerivedValue} from 'react-native-reanimated';
 import {useVector} from 'react-native-redash';
 import useDimension, {DimensionObject} from '../../hooks/useDimension';
-import {downScale, upScale} from '../../components/helper';
+import {downScale, scale, upScale} from '../../components/helper';
 import UnitList from '../UnitList';
 import UnitMap from '../../molecules/UnitMap';
 import AnimatedBackground from '../../components/molecules/AnimatedBackground/AnimatedBackground';
-import {useSharedGestureArray} from '../../hooks/useSharedGestureArray';
+import {useSharedGestureArray} from '../../components/Shared/hooks/useSharedGestureArray';
 import {SharedGestureRef} from './types';
 
 type UnitProps = {
@@ -63,24 +63,12 @@ const Unit: React.FC<UnitProps> = ({
   }, []);
 
   const scaleDown = useDerivedValue(
-    () =>
-      downScale(
-        mapDimension?.width ?? 0,
-        mapDimension?.height ?? 0,
-        contentDimension.x.value,
-        contentDimension.y.value,
-      ),
+    () => scale(contentDimension, mapDimension),
     [contentDimension, mapDimension],
   );
 
   const scaleUp = useDerivedValue(
-    () =>
-      upScale(
-        listDimension.width,
-        listDimension.height,
-        contentDimension.x.value,
-        contentDimension.y.value,
-      ),
+    () => scale(listDimension, contentDimension),
     [contentDimension, listDimension],
   );
 

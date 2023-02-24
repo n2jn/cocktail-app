@@ -2,15 +2,14 @@ import {useCallback, useRef} from 'react';
 import {View} from 'react-native';
 import {useDerivedValue} from 'react-native-reanimated';
 import useDimension from '../../../hooks/useDimension';
-import {useSharedGestureArray} from '../../../hooks/useSharedGestureArray';
+import {useSharedGestureArray} from '../../Shared/hooks/useSharedGestureArray';
 import {SharedGestureRef} from '../../../old/Unit/types';
 import {Drink} from '../../../store/thecocktaildb/type';
-import {Neumorphism} from '../../molecules/Neumorphism';
 import ProductCard from '../../molecules/ProductCard';
 
 import {Slider} from '../../molecules/Slider/slider';
 import {ProductList} from '../../organisms/ProductList';
-import {SharedWrapper} from './middleware';
+import {SharedWrapper} from '../../Shared';
 import {
   DEFAULT_CARD_HEIGHT,
   DEFAULT_CARD_WIDTH,

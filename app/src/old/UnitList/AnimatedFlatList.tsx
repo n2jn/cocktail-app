@@ -16,7 +16,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {DimensionObject} from '../../hooks/useDimension';
-import {SharedGestureObject} from '../../hooks/useSharedGestureArray';
+import {SharedGestureObject} from '../../components/Shared/hooks/useSharedGestureArray';
 import {Drink} from '../../store/thecocktaildb/type';
 import {SharedGestureRef} from '../Unit/types';
 import UnitView, {UnitViewRef} from '../UnitView/UnitView';

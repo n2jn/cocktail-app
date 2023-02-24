@@ -1,5 +1,5 @@
 import {useSharedValue} from 'react-native-reanimated';
-import {SharedGesturesArray} from './type';
+import {SharedGesturesArray} from '../type';
 
 export const useSharedGestureArray = (
   numObject: number,

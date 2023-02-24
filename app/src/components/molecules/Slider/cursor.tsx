@@ -1,16 +1,17 @@
 import {StyleSheet} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {DimensionObject, SharedGestureObject} from '../../../hooks/type';
+import {DimensionObject} from '../../../hooks/type';
 import {Circle, Line, Svg} from 'react-native-svg';
+import {useVector} from 'react-native-redash';
 
 type CursorType = {
-  sharedGesture: SharedGestureObject;
   dimension: DimensionObject;
 };
 
-export const Cursor: React.FC<CursorType> = ({dimension, sharedGesture}) => {
+export const Cursor: React.FC<CursorType> = ({dimension}) => {
+  const translation = useVector();
+
   const cursorAnimationStyle = useAnimatedStyle(() => {
-    const {translation} = sharedGesture;
     return {
       dimension,
       transform: [
@@ -22,7 +23,7 @@ export const Cursor: React.FC<CursorType> = ({dimension, sharedGesture}) => {
         },
       ],
     };
-  }, [sharedGesture, dimension]);
+  }, [translation, dimension]);
 
   return (
     <Animated.View style={[styles.cursor, cursorAnimationStyle]}>

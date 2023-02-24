@@ -18,12 +18,14 @@ import {
 import useAnimatedDimension from '../../../hooks/useAnimatedDimension';
 import {Drink} from '../../../store/thecocktaildb/type';
 import {PlaceholderCard} from '../../molecules/PlaceholderCard';
+import {useSharedListRef} from '../../Shared/hooks/useSharedListRef';
 
 // works only for DRINK (change that)
 type ProductListPropsType = FlatListProps<Drink> & {
   containerSize: DimensionObject;
   cardSize: DimensionObject;
   sharedGesture: SharedGestureObject;
+  sharedType?: string;
 };
 
 export const ProductList = React.forwardRef<
@@ -42,6 +44,11 @@ export const ProductList = React.forwardRef<
     },
     ref,
   ) => {
+    const [showPlaceholder, setShowPlaceholder] = useState(true);
+    const flatlistRef = useSharedListRef<Animated.FlatList<Drink>>(ref, {
+      showContent: () => setShowPlaceholder(false),
+    });
+
     const flexibleNumColumns = useMemo(() => {
       // calcuate number of lines is showable based on the dimension given in props
       const numLine = Math.floor(containerSize.height / cardSize.height);
@@ -54,40 +61,6 @@ export const ProductList = React.forwardRef<
     const numColumns = useMemo(
       () => staticNumColumns ?? flexibleNumColumns,
       [staticNumColumns, flexibleNumColumns],
-    );
-
-    const flatlistRef = useAnimatedRef<Animated.FlatList<Drink>>();
-    const contentSize = useAnimatedDimension();
-    const [showPlaceholder, setShowPlaceholder] = useState(true);
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        setTranslation: (x: number, y: number) => {
-          'worklet';
-          scrollTo(flatlistRef, x, y, true);
-        },
-        getGestureType: () => 'onScroll',
-        showContent: () => setShowPlaceholder(false),
-      }),
-      [flatlistRef],
-    );
-
-    const onContentSizeChange = useCallback(
-      (w: number, h: number) => {
-        const cHeight = parseInt(h.toFixed(0));
-        const cWidth = parseInt(w.toFixed(0));
-        const {width, height} = containerSize;
-
-        if (contentSize.width.value !== cWidth) {
-          contentSize.width.value = cWidth <= width ? width : cWidth;
-        }
-        if (contentSize.height.value !== cHeight) {
-          contentSize.height.value = cHeight <= height ? height : cHeight;
-        }
-        return flatlistProps.onContentSizeChange?.(w, h);
-      },
-      [containerSize],
     );
 
     const keyExtractor = useCallback(
@@ -125,7 +98,7 @@ export const ProductList = React.forwardRef<
 
     const renderPlaceholder = useCallback(() => {
       return <PlaceholderCard cardSize={cardSize} />;
-    }, []);
+    }, [cardSize]);
 
     return (
       <View style={containerSize}>
@@ -142,7 +115,7 @@ export const ProductList = React.forwardRef<
           keyExtractor={keyExtractor}
           getItemLayout={getItemLayout}
           onScroll={scrollHandler}
-          onContentSizeChange={onContentSizeChange}
+          // onContentSizeChange={onContentSizeChange}
           renderItem={showPlaceholder ? renderPlaceholder : renderItem}
           {...flatlistProps}
         />

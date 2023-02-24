@@ -1,3 +1,5 @@
+import {AnimatedDimensionObject, DimensionObject} from '../hooks/type';
+
 /**
  *
  * @param w width of SMALLEST view
@@ -39,5 +41,27 @@ export const downScale = (w: number, h: number, W: number, H: number) => {
   return {
     x: w / W,
     y: h / H,
+  };
+};
+
+export const scale = (
+  small: AnimatedDimensionObject,
+  big: AnimatedDimensionObject,
+) => {
+  'worklet';
+  if (
+    !small.width.value ||
+    !small.height.value ||
+    !big.width.value ||
+    !big.height.value
+  ) {
+    return {
+      x: 1,
+      y: 1,
+    };
+  }
+  return {
+    x: small.width.value / big.width.value,
+    y: small.height.value / big.height.value,
   };
 };
