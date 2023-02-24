@@ -1,21 +1,11 @@
-import {useCallback, useRef} from 'react';
-import {View} from 'react-native';
-import {useDerivedValue} from 'react-native-reanimated';
+import {useCallback} from 'react';
 import useDimension from '../../../hooks/useDimension';
-import {useSharedGestureArray} from '../../Shared/hooks/useSharedGestureArray';
-import {SharedGestureRef} from '../../../old/Unit/types';
 import {Drink} from '../../../store/thecocktaildb/type';
 import ProductCard from '../../molecules/ProductCard';
 
-import {Slider} from '../../molecules/Slider/slider';
-import {ProductList} from '../../organisms/ProductList';
-import {SharedWrapper} from '../../Shared';
-import {
-  DEFAULT_CARD_HEIGHT,
-  DEFAULT_CARD_WIDTH,
-  DEFAULT_LIST_HEIGHT,
-  DEFAULT_LIST_WIDTH,
-} from './model';
+import Shared from '../../Shared';
+import {DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH} from './model';
+import {CursorSVG} from '../../molecules/Slider/cursor';
 
 type TemplateProps = {
   drinks: Drink[];
@@ -30,12 +20,10 @@ const SelectionPageTemplate: React.FC<TemplateProps> = ({
 
   const cardSize = useDimension(DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT);
 
-  const listViewSize = useDimension(DEFAULT_LIST_WIDTH, DEFAULT_LIST_HEIGHT);
+  // const listViewSize = useDimension(DEFAULT_LIST_WIDTH, DEFAULT_LIST_HEIGHT);
 
-  const sliderDimension = useDimension(DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT);
+  // const sliderDimension = useDimension(DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT);
   const cursorDimension = useDimension(50 - padding, 50);
-
-  const [sgCardList, sgSlider] = useSharedGestureArray(2);
 
   const renderCard = useCallback(
     ({item}: {item: Drink}) => {
@@ -52,24 +40,24 @@ const SelectionPageTemplate: React.FC<TemplateProps> = ({
 
   return (
     <>
-      <SharedWrapper>
+      <Shared.Wrapper>
         {/** drink list  */}
-        <ProductList
-          containerSize={listViewSize}
-          cardSize={cardSize}
+        <Shared.List
+          style={{height: '50%', width: '100%', backgroundColor: 'red'}}
           data={drinks}
-          sharedGesture={sgCardList}
           renderItem={renderCard}
-          numColumns={5}
+          itemSize={cardSize}
         />
-        {/* <Neumorphism {...cardDimension}></Neumorphism> */}
+        <Shared.Slider
+          style={{width: '100%', height: '10%', backgroundColor: 'green'}}>
+          <CursorSVG />
+        </Shared.Slider>
         {/** Slider component */}
-        <Slider
-          containerSize={sliderDimension}
-          sharedGesture={sgSlider}
-          cursorSize={cursorDimension}
-        />
-      </SharedWrapper>
+        {/* <Slider containerSize={sliderDimension} cursorSize={cursorDimension} /> */}
+
+        {/* <Shared.Slider>
+        </Shared.Slider> */}
+      </Shared.Wrapper>
     </>
   );
 };

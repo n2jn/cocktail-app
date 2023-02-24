@@ -4,35 +4,35 @@ import {DimensionObject} from '../../../hooks/type';
 import {Circle, Line, Svg} from 'react-native-svg';
 import {useVector} from 'react-native-redash';
 
-type CursorType = {
-  dimension: DimensionObject;
-};
+// type CursorType = {
+//   dimension: DimensionObject;
+// };
 
-export const Cursor: React.FC<CursorType> = ({dimension}) => {
-  const translation = useVector();
+// export const Cursor: React.FC<CursorType> = ({dimension}) => {
+//   const translation = useVector();
 
-  const cursorAnimationStyle = useAnimatedStyle(() => {
-    return {
-      dimension,
-      transform: [
-        {
-          translateX: translation.x.value,
-        },
-        {
-          translateY: translation.y.value,
-        },
-      ],
-    };
-  }, [translation, dimension]);
+//   const cursorAnimationStyle = useAnimatedStyle(() => {
+//     return {
+//       dimension,
+//       transform: [
+//         {
+//           translateX: translation.x.value,
+//         },
+//         {
+//           translateY: translation.y.value,
+//         },
+//       ],
+//     };
+//   }, [translation, dimension]);
 
-  return (
-    <Animated.View style={[styles.cursor, cursorAnimationStyle]}>
-      <CursorSVG />
-    </Animated.View>
-  );
-};
+//   return (
+//     <Animated.View style={[styles.cursor, cursorAnimationStyle]}>
+//       <CursorSVG />
+//     </Animated.View>
+//   );
+// };
 
-const CursorSVG = () => {
+export const CursorSVG = () => {
   return (
     <Svg height="100%" width="100%" viewBox="0 0 100 100">
       <Circle
@@ -67,13 +67,13 @@ const CursorSVG = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  cursor: {
-    position: 'absolute',
-    borderColor: 'yellow',
-    borderWidth: 3,
-    left: 0,
-    top: 0,
-    backgroundColor: 'green',
-  },
-});
+// const styles = StyleSheet.create({
+//   cursor: {
+//     position: 'absolute',
+//     borderColor: 'yellow',
+//     borderWidth: 3,
+//     left: 0,
+//     top: 0,
+//     backgroundColor: 'green',
+//   },
+// });

@@ -8,7 +8,9 @@ export const useSharedViewRef = <T extends unknown>(
   const viewRef = useRef<T>(null);
 
   useImperativeHandle(ref, () => ({
-    setTranslation: () => {},
+    setTranslation: () => {
+      'worklet';
+    },
     getGestureType: () => 'StickyPan',
     showContent: () => {},
     ...(customRefFunction ?? {}),

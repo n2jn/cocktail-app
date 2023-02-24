@@ -5,36 +5,26 @@ import React, {
   useState,
 } from 'react';
 import {FlatListProps, StyleSheet, View} from 'react-native';
-import Animated, {
-  scrollTo,
-  useAnimatedRef,
-  useAnimatedScrollHandler,
-} from 'react-native-reanimated';
-import {
-  DimensionObject,
-  SharedGestureObject,
-  SharedGestureRefType,
-} from '../../../hooks/type';
-import useAnimatedDimension from '../../../hooks/useAnimatedDimension';
+import Animated, {useAnimatedScrollHandler} from 'react-native-reanimated';
+import {DimensionObject} from '../../../hooks/type';
 import {Drink} from '../../../store/thecocktaildb/type';
 import {PlaceholderCard} from '../../molecules/PlaceholderCard';
 import {useSharedListRef} from '../../Shared/hooks/useSharedListRef';
+import {SharedRefType} from '../../Shared/type';
 
 // works only for DRINK (change that)
 type ProductListPropsType = FlatListProps<Drink> & {
   containerSize: DimensionObject;
   cardSize: DimensionObject;
-  sharedGesture: SharedGestureObject;
   sharedType?: string;
 };
 
 export const ProductList = React.forwardRef<
-  SharedGestureRefType,
+  SharedRefType,
   ProductListPropsType
 >(
   (
     {
-      sharedGesture: sg,
       data,
       cardSize,
       numColumns: staticNumColumns,
@@ -77,25 +67,6 @@ export const ProductList = React.forwardRef<
       [cardSize],
     );
 
-    const scrollHandler = useAnimatedScrollHandler({
-      onScroll: event => {
-        sg.translation.y.value = event.contentOffset.y;
-        sg.translation.x.value = event.contentOffset.x;
-      },
-      onBeginDrag: e => {
-        sg.isGestureBeingUsed.value = true;
-      },
-      onEndDrag: e => {
-        sg.isGestureBeingUsed.value = false;
-      },
-      onMomentumBegin: () => {
-        sg.isGestureBeingUsed.value = true;
-      },
-      onMomentumEnd: e => {
-        sg.isGestureBeingUsed.value = false;
-      },
-    });
-
     const renderPlaceholder = useCallback(() => {
       return <PlaceholderCard cardSize={cardSize} />;
     }, [cardSize]);
@@ -114,7 +85,6 @@ export const ProductList = React.forwardRef<
           showsHorizontalScrollIndicator={false}
           keyExtractor={keyExtractor}
           getItemLayout={getItemLayout}
-          onScroll={scrollHandler}
           // onContentSizeChange={onContentSizeChange}
           renderItem={showPlaceholder ? renderPlaceholder : renderItem}
           {...flatlistProps}

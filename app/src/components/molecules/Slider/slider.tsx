@@ -14,7 +14,7 @@ type SliderProps = ViewProps & {
 export const Slider = React.forwardRef<SharedRefType, SliderProps>(
   ({containerSize, cursorSize, onLayout}, ref) => {
     const [showPlaceholder, setShowPlaceholder] = useState(true);
-    const viewRef = useSharedViewRef<View>(ref, {type: '', gesture: 'Pan'});
+    const viewRef = useSharedViewRef<View>(ref);
 
     return (
       <View

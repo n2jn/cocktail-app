@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {DimensionObject} from './type';
 
 const useDimension = (w: number, h: number): DimensionObject => {
   const [width, setWidth] = useState(w);
