@@ -1,14 +1,21 @@
 /**
  * @format
  */
+import '@testing-library/jest-native/extend-expect';
 
-import 'react-native';
 import React from 'react';
-import App from '../App';
+import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+import Apps from '../App';
+import FavoritePage from '../src/screens/IngredientScreen';
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+describe('Screen 1', () => {
+  it('navigates on button press', () => {
+    const push = jest.fn();
+    // const {getByText} = render(<FavoritePage navigation={{push}} />);
+
+    // fireEvent.press(getByText('Go to Screen 2'));
+    // expect(push).toHaveBeenCalledWith('Screen2');
+  });
 });

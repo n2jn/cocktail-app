@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic test Button renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "black",
+      "borderRadius": 20,
+      "overflow": "hidden",
+    }
+  }
+>
+  <Image
+    onError={[Function]}
+    resizeMode="contain"
+    source={
+      Object {
+        "uri": "",
+      }
+    }
+    style={
+      Object {
+        "height": 19,
+        "width": 19,
+      }
+    }
+    testID="image"
+  />
+</View>
+`;

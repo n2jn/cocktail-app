@@ -1,7 +1,0 @@
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../model';
-
-export const DEFAULT_LIST_WIDTH = SCREEN_WIDTH;
-export const DEFAULT_LIST_HEIGHT = SCREEN_HEIGHT;
-
-export const DEFAULT_CARD_WIDTH = SCREEN_WIDTH / 4;
-export const DEFAULT_CARD_HEIGHT = SCREEN_WIDTH / 4;

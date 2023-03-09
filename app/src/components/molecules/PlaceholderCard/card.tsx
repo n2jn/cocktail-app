@@ -1,34 +1,34 @@
 import {StyleSheet} from 'react-native';
 import Animated, {
-  Easing,
-  FadeIn,
   FadeOut,
-  Layout,
   useAnimatedStyle,
   withRepeat,
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import {DimensionObject} from '../../../hooks/type';
 
-export const PlaceholderCard = ({cardSize}: {cardSize: DimensionObject}) => {
+export const PlaceholderCard = ({
+  cardSize,
+}: {
+  cardSize: {width: number; height: number};
+}) => {
   const animatedStyle = useAnimatedStyle(() => {
     // backgroundColor is changed in JS thread, don't know how to fix that
     return {
-      // backgroundColor: withRepeat(
-      //   withSequence(
-      //     withTiming('white', {
-      //       duration: 1000,
-      //     }),
-      //     withTiming('grey', {
-      //       duration: 3000,
-      //     }),
-      //     withTiming('white', {
-      //       duration: 3000,
-      //     }),
-      //   ),
-      //   -1,
-      // ),
+      backgroundColor: withRepeat(
+        withSequence(
+          withTiming('white', {
+            duration: 1000,
+          }),
+          withTiming('grey', {
+            duration: 3000,
+          }),
+          withTiming('white', {
+            duration: 3000,
+          }),
+        ),
+        -1,
+      ),
     };
   }, []);
 

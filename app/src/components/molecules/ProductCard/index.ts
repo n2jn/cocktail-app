@@ -1,2 +1,2 @@
 import {ProductCard} from './card';
-export default ProductCard; 
+export default ProductCard;
