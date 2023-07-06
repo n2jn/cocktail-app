@@ -1,10 +1,11 @@
 import React, {useCallback} from 'react';
 import {RootStackScreenProps} from '../navigation/types';
-import Shared from 'react-native-shared-gesture';
 import {Icon} from '~components/atoms/Icon';
 import {CARD_HEIGHT, CARD_WIDTH} from '~components/molecules/ProductCard/model';
 import {useIngredient} from '~hooks/useIngredient';
 import {PlaceholderCard} from '~components/molecules/PlaceholderCard';
+
+import Shared from 'react-native-shared-gesture';
 
 export const IngredientScreen: React.FC<RootStackScreenProps<'Ingredient'>> = ({
   navigation,
@@ -33,7 +34,12 @@ export const IngredientScreen: React.FC<RootStackScreenProps<'Ingredient'>> = ({
           data={Ingredient}
           renderItem={renderitem}
         />
-        <Shared.Slider style={{width: '100%', height: 32}}>
+        <Shared.Slider
+          style={{width: '50%', height: 32, backgroundColor: 'green'}}>
+          <Icon size={16} name={'heart'} />
+        </Shared.Slider>
+        <Shared.Slider
+          style={{width: '100%', height: 32, backgroundColor: 'green'}}>
           <Icon size={16} name={'heart'} />
         </Shared.Slider>
       </Shared.Wrapper>
